@@ -4,7 +4,7 @@ import $ from 'jquery';
 class SayHello extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { ahm: 0 };
+		this.state = { ahm: 0, srv_rsp: '', srv_add_result: 0 };
 	}
 
 	inc = () => {
@@ -25,9 +25,32 @@ class SayHello extends Component {
 		// $.post('say-hello', {}, (d, s) => {
 		// 	console.log({ d, s });
 		// });
-
+		let self = this;
 		$.post('say-hello', {}, (d, s) => {
 			console.log({ d, s });
+			self.setState({ srv_rsp: d['result'] });
+		});
+	};
+
+	callAdd = () => {
+		function tryParseInt(s, v) {
+			if (s == null) return v;
+			if (s == '') return v;
+			try {
+				return parseInt(s);
+			} catch {
+				return v;
+			}
+		}
+
+		let self = this;
+		let x = tryParseInt($('#txt_x').val(), 0);
+		let y = tryParseInt($('#txt_y').val(), 0);
+		// debugger;
+
+		$.post('add-numbers', { x, y }, (d, s) => {
+			console.log({ d, s });
+			self.setState({ srv_add_result: d['result'] });
 		});
 	};
 
@@ -46,6 +69,20 @@ class SayHello extends Component {
 				<button className="btn btn-primary m-1" onClick={this.sendRestRequest}>
 					CALL REST API
 				</button>
+				<br />
+				<span>{this.state.srv_rsp}</span>
+				<hr />
+				<h3>CALL ADD NUMBERS</h3>
+				<input id="txt_x" type="number" className="p-2" placeholder="X = ?" />
+				<br />
+				<input id="txt_y" type="number" className="p-2" placeholder="Y = ?" />
+				<br />
+				<button className="btn btn-primary m-1" onClick={this.callAdd}>
+					CALL REST API ADD
+				</button>
+				<br />
+				<span>[SERVER RESULT]: {this.state.srv_add_result}</span>
+				<hr />
 			</div>
 		);
 	}

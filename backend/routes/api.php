@@ -25,6 +25,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/say-hello', 'AhmController@sayHello');
 Route::post('/say-hello', 'AhmController@sayHello');
 
+Route::get('/add-numbers', 'AhmController@addNumbers');
+Route::post('/add-numbers', 'AhmController@addNumbers');
 
 Route::get('/upload', 'AhmController@handleUpload');
 Route::post('/upload', 'AhmController@handleUpload');
