@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.css';
 
-import SayHello from './components/SayHello';
-
 function App() {
-	return <SayHello></SayHello>;
+	return <h1 className="alert alert-info">Welcome to React + Laravel</h1>;
 }
 
 export default App;

@@ -36,6 +36,7 @@ class SayHello extends Component {
 			});
 		} else {
 			// IN PRODUCT MODE
+			// MAKE A REAL PATH TO SERVER SIDE API
 			alert('PRODUCT MODE');
 			$.post('say-hello', {}, (d, s) => {
 				console.log({ d, s });
@@ -69,6 +70,8 @@ class SayHello extends Component {
 	render() {
 		return (
 			<div className="m-5">
+				<h1>HELLO FROM REACT</h1>
+
 				<button className="btn btn-primary mb-1" onClick={this.inc}>
 					Press Me
 				</button>
