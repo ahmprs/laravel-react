@@ -26,10 +26,22 @@ class SayHello extends Component {
 		// 	console.log({ d, s });
 		// });
 		let self = this;
-		$.post('say-hello', {}, (d, s) => {
-			console.log({ d, s });
-			self.setState({ srv_rsp: d['result'] });
-		});
+
+		if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+			// IN DEVELOPMENT MODE:
+			alert('DEVELOPMENT MODE');
+			$.post('say-hello', {}, (d, s) => {
+				console.log({ d, s });
+				self.setState({ srv_rsp: d['result'] });
+			});
+		} else {
+			// IN PRODUCT MODE
+			alert('PRODUCT MODE');
+			$.post('say-hello', {}, (d, s) => {
+				console.log({ d, s });
+				self.setState({ srv_rsp: d['result'] });
+			});
+		}
 	};
 
 	callAdd = () => {
